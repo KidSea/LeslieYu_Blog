@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import inspect,logging, os, asyncio
+import inspect,logging, os, asyncio,functools
 
 from aiohttp import web
 from urllib import parse
@@ -12,7 +12,7 @@ def get(path):
     Define decorator @get('/path')
     '''
     def decorator(func):
-        @function.wraps(func)
+        @functools.wraps(func)
         def wrapper(*args, **kw):
             return func(*args, **kw)
         wrapper.__method__ = 'GET'
@@ -25,7 +25,7 @@ def post(path):
     Define decorator @post('/path')
     '''
     def decorator(func):
-        @function.wraps(func)
+        @functools.wraps(func)
         def wrapper(*args, **kw):
             return func(*args, **kw)
         wrapper.__method__ = 'POST'

@@ -110,10 +110,11 @@ def datetime_filter(t):
     return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 host = '127.0.0.1'
-port = 9000
+port = 9001
+data_port = 3306
 #初始化本地服务
 async def init(loop):
-    await orm.create_pool(loop=loop, host=host, port=port, user='root', password='a5786776', database='awesome')
+    await orm.create_pool(loop=loop, host=host, port=data_port, user='root', password='a5786776', database='awesome')
     app = web.Application(loop=loop, middlewares=[
         logger_factory, response_factory
     ])
@@ -121,7 +122,7 @@ async def init(loop):
     add_routes(app, 'handlers')
     add_static(app)
     server = await loop.create_server(app.make_handler(), host, port)
-    logging.info("server started at http://127.0.0.1:9000...")
+    logging.info("server started at http://127.0.0.1:9001...")
     return server
 
 loop = asyncio.get_event_loop()
